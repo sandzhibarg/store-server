@@ -4,8 +4,9 @@ from django.shortcuts import render
 # создание функций/представлений/контроллеров для отображения наших шаблонов
 def index(request):
     context = {
-        'title': 'Test title', 
+        'title': 'Store', 
         'username': 'Sandzhi',
+        'is_promotion': False,
     }
     return render(request, 'products/index.html', context)
 
