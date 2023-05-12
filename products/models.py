@@ -19,5 +19,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products_images')
     category = models.ForeignKey(to=ProductCategory, on_delete=models.CASCADE) # тут параметр on_delete=PROTECT означает что невозможно будет удалить категорию товара, пока все продукты в этой категории не удаляться или не присвоится другая категория
 
+    # кастомный вывод названия продкута в админ панели
     def __str__(self):
-        return self.name
+        return f'Продукт: {self.name} | Категория : {self.category.name}'
