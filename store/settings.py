@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django_dump_load_utf8',
     'django.contrib.staticfiles',
     'products',
 ]
