@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.urls import reverse # просто возвращает строку, где у нас находится адрес
 
 from users.models import User
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 # Create your views here.
 def login(request):
@@ -33,5 +33,6 @@ def registration(request):
     return render(request, 'users/registration.html', context)
 
 def profile(request):
-    context = {'title': 'Store - Профиль'}
+    form = UserProfileForm(instance=request.user) # в параметрах указываем данные пользователя, чтобы они отобразились в полях профиля
+    context = {'title': 'Store - Профиль', 'form': form}
     return render(request, 'users/profile.html', context)
