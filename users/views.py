@@ -45,3 +45,7 @@ def profile(request):
         form = UserProfileForm(instance=request.user) # в параметрах указываем данные пользователя, чтобы они отобразились в полях профиля
     context = {'title': 'Store - Профиль', 'form': form}
     return render(request, 'users/profile.html', context)
+
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('index'))
