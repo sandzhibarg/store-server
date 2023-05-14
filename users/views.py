@@ -4,6 +4,7 @@ from django.urls import reverse # просто возвращает строку
 
 from users.models import User
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from products.models import Basket
 
 # Create your views here.
 def login(request):
@@ -43,7 +44,11 @@ def profile(request):
             print(form.errors)
     else:
         form = UserProfileForm(instance=request.user) # в параметрах указываем данные пользователя, чтобы они отобразились в полях профиля
-    context = {'title': 'Store - Профиль', 'form': form}
+    context = {
+        'title': 'Store - Профиль', 
+        'form': form,
+        'baskets': Basket.objects.all(),
+    }
     return render(request, 'users/profile.html', context)
 
 def logout(request):
