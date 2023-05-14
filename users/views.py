@@ -46,11 +46,8 @@ def profile(request):
         form = UserProfileForm(instance=request.user) # в параметрах указываем данные пользователя, чтобы они отобразились в полях профиля
 
     baskets = Basket.objects.filter(user=request.user)
-    total_sum = 0
-    total_quantity = 0
-    for basket in baskets:
-        total_sum += basket.sum()
-        total_quantity += basket.quantity
+    total_sum = sum(basket.sum() for basket in baskets)
+    total_quantity = sum(basket.quantity for basket in baskets)
 
     context = {
         'title': 'Store - Профиль', 
