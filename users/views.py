@@ -45,14 +45,10 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user) # в параметрах указываем данные пользователя, чтобы они отобразились в полях профиля
 
-    baskets = Basket.objects.filter(user=request.user)
-
     context = {
         'title': 'Store - Профиль', 
         'form': form,
         'baskets': Basket.objects.filter(user=request.user),
-        'total_sum': sum(basket.sum() for basket in baskets),
-        'total_quantity': sum(basket.quantity for basket in baskets),
     }
     return render(request, 'users/profile.html', context)
 
