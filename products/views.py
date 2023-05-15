@@ -14,8 +14,7 @@ def index(request):
 
 def products(request, category_id=None):
     if category_id:
-        category = ProductCategory.objects.get(id=category_id)
-        products = Product.objects.filter(category=category)
+        products = Product.objects.filter(category__id=category_id)
     else:
         products = Product.objects.all()
     context = {
