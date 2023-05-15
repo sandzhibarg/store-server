@@ -13,10 +13,9 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 def products(request, category_id=None):
-    if category_id:
-        products = Product.objects.filter(category__id=category_id)
-    else:
-        products = Product.objects.all()
+    # используем тернарный оператор
+    products = Product.objects.filter(category__id=category_id) if category_id else Product.objects.all()
+
     context = {
         'title': 'Store - Каталог',
         'products': products,
