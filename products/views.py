@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 
 from products.models import ProductCategory, Product, Basket
 from users.models import User
@@ -16,6 +17,10 @@ class IndexView(TemplateView):
         context = super(IndexView, self).get_context_data()
         context['title'] = 'Store'
         return context
+    
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'products/products.html'
 
 def products(request, category_id=None, page_number=1):
     # используем тернарный оператор (также можем сразу передать в context)
