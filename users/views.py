@@ -51,6 +51,9 @@ class UserProfileView(UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = 'users/profile.html'
+
+    def get_success_url(self):
+        return reverse_lazy('users:profile', args=(self.object.id,))
     
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data()
