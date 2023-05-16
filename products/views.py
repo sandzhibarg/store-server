@@ -1,8 +1,7 @@
 from typing import Any, Dict
 from django.db.models.query import QuerySet
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
@@ -34,22 +33,6 @@ class ProductsListView(ListView):
         context['title'] = 'Store - Каталог' # переопределяем поля в контексте
         context['categories'] = ProductCategory.objects.all() #
         return context
-
-
-# def products(request, category_id=None, page_number=1):
-#     # используем тернарный оператор (также можем сразу передать в context)
-#     products = Product.objects.filter(category__id=category_id) if category_id else Product.objects.all()
-    
-#     per_page = 3
-#     paginator = Paginator(products, per_page)
-#     products_paginator = paginator.page(page_number)
-
-#     context = {
-#         'title': 'Store - Каталог',
-#         'products': products_paginator,
-#         'categories': ProductCategory.objects.all(),
-#     }
-#     return render(request, 'products/products.html', context)
 
 @login_required
 def basket_add(request, product_id):
