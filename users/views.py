@@ -3,26 +3,31 @@ from django.contrib import auth, messages
 from django.urls import reverse, reverse_lazy # просто возвращает строку, где у нас находится адрес
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.views import LoginView
 
 from users.models import User
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from products.models import Basket
 
-# Create your views here.
-def login(request):
-    if request.method == 'POST':
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST['username']
-            password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
-            if user:
-                auth.login(request, user)
-                return HttpResponseRedirect(reverse('index')) #
-    else:
-        form = UserLoginForm()
-    context = {'form': form}
-    return render(request, 'users/login.html', context)
+class UserloginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = UserLoginForm
+
+# # Create your views here.
+# def login(request):
+#     if request.method == 'POST':
+#         form = UserLoginForm(data=request.POST)
+#         if form.is_valid():
+#             username = request.POST['username']
+#             password = request.POST['password']
+#             user = auth.authenticate(username=username, password=password)
+#             if user:
+#                 auth.login(request, user)
+#                 return HttpResponseRedirect(reverse('index')) #
+#     else:
+#         form = UserLoginForm()
+#     context = {'form': form}
+#     return render(request, 'users/login.html', context)
 
 class UserRegistrationView(CreateView):
     model = User
