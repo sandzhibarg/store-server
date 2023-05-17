@@ -1,11 +1,13 @@
 import uuid
 from datetime import timedelta
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 from django import forms
+from django.contrib.auth.forms import (AuthenticationForm, UserChangeForm,
+                                       UserCreationForm)
 from django.utils.timezone import now
 
-from users.models import User, EmailVerification
+from users.models import EmailVerification, User
+
 
 class UserLoginForm(AuthenticationForm):
     # добавляем наши стили для формы в login.html для поля ввода имя пользователя

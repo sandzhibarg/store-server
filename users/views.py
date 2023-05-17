@@ -1,16 +1,17 @@
-from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
-from django.urls import reverse, reverse_lazy # просто возвращает строку, где у нас находится адрес
 from django.contrib.auth.decorators import login_required
-from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import HttpResponseRedirect, render
+from django.urls import (  # просто возвращает строку, где у нас находится адрес
+    reverse, reverse_lazy)
+from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, UpdateView
 
-from users.models import User, EmailVerification
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
-from products.models import Basket
 from common.views import TitleMixin
+from users.forms import UserLoginForm, UserProfileForm, UserRegistrationForm
+from users.models import EmailVerification, User
+
 
 class UserloginView(TitleMixin, LoginView):
     template_name = 'users/login.html'

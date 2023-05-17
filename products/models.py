@@ -2,6 +2,7 @@ from django.db import models
 
 from users.models import User
 
+
 # Create your models here.
 # создание моделей=таблиц для баз данных
 # модель с категорией товаров
