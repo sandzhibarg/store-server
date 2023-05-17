@@ -25,18 +25,6 @@ class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     success_message = 'Вы успешно зарегистрированы!'
     title = 'Store - регистрация'
 
-# def registration(request):
-#     if request.method == 'POST':
-#         form = UserRegistrationForm(data=request.POST)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Поздравляем! Вы успешно зарегистрировались!')
-#             return HttpResponseRedirect(reverse('users:login'))
-#     else:
-#         form = UserRegistrationForm()
-#     context = {'form': form}
-#     return render(request, 'users/registration.html', context)
-
 class UserProfileView(TitleMixin, UpdateView):
     model = User
     form_class = UserProfileForm
@@ -46,11 +34,6 @@ class UserProfileView(TitleMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))
     
-    def get_context_data(self, **kwargs):
-        context = super(UserProfileView, self).get_context_data()
-        context['baskets'] = Basket.objects.filter(user=self.object)
-        return context
-
 class EmailVerificationView(TitleMixin, TemplateView):
     title = 'Store - Подтверждение электронной почты'
     template_name = 'users/email_verification.html'
