@@ -5,7 +5,7 @@ from products.models import Basket, Product, ProductCategory
 # Register your models here.
 admin.site.register(ProductCategory)
 
-@admin.register(Product) # указываем с каким именно классом мы будем работать
+@admin.register(Product)  # указываем с каким именно классом мы будем работать
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'quantity', 'category')
     fields = ('name', 'description', ('price', 'quantity'), 'image', 'category')
