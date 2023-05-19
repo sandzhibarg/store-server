@@ -10,6 +10,7 @@ urlpatterns = [
     path('', IndexView.as_view(extra_context={'title': 'Store'}), name='index'),
     path('products/', include('products.urls', namespace='products')), # перенаправка на файл urls.py приложения products
     path('users/', include('users.urls', namespace='users')), # перенаправка на файл urls.py приложения users
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG == True:
