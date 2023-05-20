@@ -167,12 +167,12 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # sending emails
-# EMAIL_HOST = 'smtp.yandex.ru'
-# EMAIL_PORT = 465
-# EMAIL_HOST_USER = 'zambagadan@yandex.com'
-# EMAIL_HOST_PASSWORD = 'ducxermhuvgqsppr'
-# EMAIL_USE_SSL = True
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'zambagadan@yandex.com'
+EMAIL_HOST_PASSWORD = 'ducxermhuvgqsppr'
+EMAIL_USE_SSL = True
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Oauth
 
@@ -194,3 +194,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# celery
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
