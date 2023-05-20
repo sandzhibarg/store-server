@@ -21,7 +21,7 @@ class ProductsListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
-    title = 'Store - каталог'
+    title = 'Store - Каталог'
 
     def get_queryset(self):
         queryset = super(ProductsListView, self).get_queryset()
