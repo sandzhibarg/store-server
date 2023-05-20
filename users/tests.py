@@ -1,12 +1,13 @@
-from http import HTTPStatus
 from datetime import timedelta
-from django.utils.timezone import now
+from http import HTTPStatus
 
 from django.test import TestCase
 from django.urls import reverse
+from django.utils.timezone import now
 
 from users.forms import UserRegistrationForm
-from users.models import User, EmailVerification
+from users.models import EmailVerification, User
+
 
 # Create your tests here.
 class UserRegistrationViewTestCase(TestCase):
@@ -45,3 +46,11 @@ class UserRegistrationViewTestCase(TestCase):
             email_verification.first().expiration.date(),
             (now() + timedelta(hours=48)).date()
         )
+
+    def test_user_registration_post_error(self):
+        username = self.data['username']
+        user = User.objects.create(username=username)
+        response = self.client.post(self.path, self.data)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        self.assertContains(response, 'Пользователь с таким именем уже существует.', html=True)
