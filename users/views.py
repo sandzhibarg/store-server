@@ -1,8 +1,8 @@
-from django.contrib import auth, messages
-from django.contrib.auth.decorators import login_required
+# from django.contrib import auth, messages
+# from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import HttpResponseRedirect, render
+from django.shortcuts import HttpResponseRedirect
 from django.urls import (  # просто возвращает строку, где у нас находится адрес
     reverse, reverse_lazy)
 from django.views.generic.base import TemplateView
@@ -18,6 +18,7 @@ class UserloginView(TitleMixin, LoginView):
     form_class = UserLoginForm
     title = 'Store - авторизация'
 
+
 class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     model = User
     form_class = UserRegistrationForm
@@ -25,6 +26,7 @@ class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('users:login')
     success_message = 'Вы успешно зарегистрированы!'
     title = 'Store - Регистрация'
+
 
 class UserProfileView(TitleMixin, UpdateView):
     model = User
@@ -34,7 +36,8 @@ class UserProfileView(TitleMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('users:profile', args=(self.object.id,))
-    
+
+
 class EmailVerificationView(TitleMixin, TemplateView):
     title = 'Store - Подтверждение электронной почты'
     template_name = 'users/email_verification.html'
