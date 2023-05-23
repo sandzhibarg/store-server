@@ -45,7 +45,7 @@ class Product(models.Model):
         if not self.stripe_product_price_id:
             stripe_product_price = self.create_stripe_product_price()
             self.stripe_product_price_id = stripe_product_price['id']
-        super(Product, self).save(force_insert=False, force_update=False, using=None, update_fields=None)     
+        super(Product, self).save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)     
     
     def create_stripe_product_price(self):
         stripe_product = stripe.Product.create(name=self.name)
@@ -59,6 +59,16 @@ class BasketQuerySet(models.QuerySet):
     
     def total_quantity(self):
         return sum(basket.quantity for basket in self)
+    
+    def stripe_products(self):
+        line_items = []
+        for basket in self:
+            item = {
+                'price': basket.product.stripe_product_price_id,
+                'quantity': basket.quantity,
+            }
+            line_items.append(item)
+        return line_items
     
 class Basket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
