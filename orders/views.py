@@ -12,6 +12,7 @@ from django.http import HttpResponse
 from common.views import TitleMixin
 from orders.forms import OrderForm
 from products.models import Basket
+from orders.models import Orders
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -56,28 +57,21 @@ def stripe_webhook_view(request):
         payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
     except ValueError as e:
-        # Invalid payload
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
         return HttpResponse(status=400)
 
     # Handle the checkout.session.completed event
     if event['type'] == 'checkout.session.completed':
         # Retrieve the session. If you require line items in the response, you may include them by expanding line_items.
-        session = stripe.checkout.Session.retrieve(
-        event['data']['object']['id'],
-        expand=['line_items'],
-        )
+        session = event['data']['object']
 
-        line_items = session.line_items
-        # Fulfill the purchase...
-        fulfill_order(line_items)
+        fulfill_order(session)
 
     # Passed signature verification
     return HttpResponse(status=200)
 
 def fulfill_order(session):
-    # TODO: fill me in
-    order_id = int(session.metadata.order.id)
-    print("Fulfilling order")
+    order_id = int(session.metadata.order_id)
+    order = Orders.objects.get(id=order_id)
+    order.update_after_payment()
