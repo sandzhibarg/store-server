@@ -15,7 +15,7 @@ import os
 from pathlib import Path
 
 env = environ.Env(
-    DEBUG=(bool),
+    DEBUG=(bool, False),
 
     SECRET_KEY=(str),
     DOMAIN_NAME=(str),
@@ -78,10 +78,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'debug_toolbar',
     'django_extensions',
+    'rest_framework',
 
     'products',
     'users',
     'orders',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -247,3 +249,9 @@ CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
+
+# Django REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3
+}
