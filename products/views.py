@@ -1,15 +1,11 @@
-from typing import Any, Dict
-
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
-from django.db.models.query import QuerySet
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 
 from common.views import TitleMixin
 from products.models import Basket, Product, ProductCategory
-from users.models import User
 
 
 # Create your views here.

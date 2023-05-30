@@ -1,9 +1,7 @@
 from http import HTTPStatus
-from typing import Any, Dict
 
 import stripe
 from django.conf import settings
-from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -78,9 +76,9 @@ def stripe_webhook_view(request):
         event = stripe.Webhook.construct_event(
         payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
-    except ValueError as e:
+    except ValueError:
         return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
+    except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
 
     # Handle the checkout.session.completed event

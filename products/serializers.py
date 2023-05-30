@@ -1,7 +1,7 @@
-from rest_framework import serializers
-from rest_framework import fields
+from rest_framework import fields, serializers
 
-from products.models import Product, ProductCategory, Basket
+from products.models import Basket, Product, ProductCategory
+
 
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(slug_field='name', queryset=ProductCategory.objects.all())
